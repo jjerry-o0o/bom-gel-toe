@@ -2,6 +2,7 @@ import {useState} from "react";
 import Player from "./components/Player.jsx";
 import GameBoard from "./components/GameBoard.jsx";
 import Log from "./components/Log.jsx";
+
 // import react from "@vitejs/plugin-react";
 
 function App() {
@@ -10,7 +11,18 @@ function App() {
     [{initPlayerName: 'jel', symbol: 'X'}]
   ];
 
-  const [sequence, setSequence] = useState(player[0][0]);
+  const [sequence, setSequence] = useState(player[0][0].symbol);
+
+  function onSetSequence(rowIdx, colIdx) {
+    console.log(rowIdx + ' : ' + colIdx);
+    console.log('symbol : '+sequence);
+
+    if(sequence === 'O') {
+      setSequence('X');
+    }else {
+      setSequence('O');
+    }
+  }
 
   return (
     <main>
@@ -26,8 +38,8 @@ function App() {
         </ul>
 
         <GameBoard
-          symbol={sequence.symbol}
-          nextTurn={() => nextTurn(sequence)}
+          symbol={sequence}
+          nextTurn={onSetSequence}
         />
 
         <Log/>

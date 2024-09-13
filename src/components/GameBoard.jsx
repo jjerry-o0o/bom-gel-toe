@@ -1,31 +1,35 @@
 import {useState} from "react";
 
+const initBoard = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null]
+];
+
+const gameBoard = [...initBoard];
+
 export default function GameBoard({symbol, nextTurn}) {
-  const initBoard = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null]
-  ]
   const [board, setBoard] = useState(initBoard);
-  const gameBoard = [...initBoard];
 
   function onClickBoard(rowIdx, colIdx) {
-    console.log(rowIdx+' : '+colIdx);
-    nextTurn = ({sequence}) => {
-      console.log(sequence);
-    }
+    console.log('하위 : '+rowIdx+' : '+colIdx);
+    nextTurn(rowIdx, colIdx);
+    gameBoard[rowIdx][colIdx] = symbol;
+    console.log(gameBoard);
+    setBoard(gameBoard)
   }
 
   return (
     <div id="game-board">
-      {board.map((row, rowIdx) =>
+      {gameBoard.map((row, rowIdx) =>
         <ol key={rowIdx}>
           {row.map((col, colIdx) =>
             <button
               key={colIdx}
               onClick={() => onClickBoard(rowIdx, colIdx)}
-              value={col}
-            ></button>
+            >
+              {col}
+            </button>
           )}
         </ol>
       )}
