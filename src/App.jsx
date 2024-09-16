@@ -6,21 +6,18 @@ import Log from "./components/Log.jsx";
 // import react from "@vitejs/plugin-react";
 
 function App() {
-  const player = [
-    [{initPlayerName: 'bom', symbol: 'O'}],
-    [{initPlayerName: 'jel', symbol: 'X'}]
+  const playerInfo = [
+    {initPlayerName: 'bom', symbol: 'O'},
+    {initPlayerName: 'jel', symbol: 'X'}
   ];
 
-  const [sequence, setSequence] = useState(player[0][0].symbol);
+  const [sequence, setSequence] = useState(playerInfo[0].symbol);
 
-  function onSetSequence(rowIdx, colIdx) {
-    console.log(rowIdx + ' : ' + colIdx);
-    console.log('symbol : '+sequence);
-
+  function onSetSequence() {
     if(sequence === 'O') {
-      setSequence('X');
+      setSequence(playerInfo[1].symbol);
     }else {
-      setSequence('O');
+      setSequence(playerInfo[0].symbol);
     }
   }
 
@@ -28,11 +25,12 @@ function App() {
     <main>
       <div id="game-container">
         <ul id="players" className="highlight-player">
-          {player.map((playerInfo, idx) =>
+          {playerInfo.map((player, Idx) =>
             <Player
-              key={idx}
-              initPlayerName={playerInfo[0].initPlayerName}
-              symbol={playerInfo[0].symbol}
+              initPlayerName={player.initPlayerName}
+              symbol={player.symbol}
+              sequence={sequence}
+              key={Idx}
             />
           )}
         </ul>
