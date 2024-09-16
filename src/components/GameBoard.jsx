@@ -6,17 +6,15 @@ const initBoard = [
   [null, null, null]
 ];
 
-const gameBoard = [...initBoard];
 
 export default function GameBoard({symbol, nextTurn}) {
   const [board, setBoard] = useState(initBoard);
+  const gameBoard = [...board];
 
   function onClickBoard(rowIdx, colIdx) {
-    console.log('하위 : '+rowIdx+' : '+colIdx);
-    nextTurn(rowIdx, colIdx);
     gameBoard[rowIdx][colIdx] = symbol;
-    console.log(gameBoard);
-    setBoard(gameBoard)
+    setBoard(gameBoard);
+    nextTurn();
   }
 
   return (
