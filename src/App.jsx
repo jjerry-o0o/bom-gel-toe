@@ -2,6 +2,7 @@ import {useState} from "react";
 import Player from "./components/Player.jsx";
 import GameBoard from "./components/GameBoard.jsx";
 import Log from "./components/Log.jsx";
+import GameOver from "./components/GameOver.jsx"
 
 // import react from "@vitejs/plugin-react";
 
@@ -12,8 +13,10 @@ function App() {
   ];
 
   const [sequence, setSequence] = useState(playerInfo[0].symbol);
+  let symbolMatch = false;
 
   function onSetSequence() {
+
     if(sequence === 'O') {
       setSequence(playerInfo[1].symbol);
     }else {
@@ -24,6 +27,7 @@ function App() {
   return (
     <main>
       <div id="game-container">
+        {/*{false && <GameOver />}*/}
         <ul id="players" className="highlight-player">
           {playerInfo.map((player, Idx) =>
             <Player
