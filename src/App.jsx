@@ -17,7 +17,6 @@ const playerInfo = [
 ];
 
 function App() {
-  // const [gameBoard, setGameBoard] = useState([]);
   const [gameTurns, setGameTurns] = useState([]);
 
   const board = deriveGameBoard(gameTurns);
@@ -57,7 +56,7 @@ function App() {
         && firstSymbol === secondSymbol
         && firstSymbol === thirdSymbol
       ) {
-        winner = firstSymbol.symbol;
+        winner = firstSymbol;
       }
     }
 
@@ -65,7 +64,6 @@ function App() {
   }
 
   function onClickBoard(rowIdx, colIdx) {
-    // board[rowIdx][colIdx] = {box: {row: rowIdx, col: colIdx}, symbol: activePlayer};
     setGameTurns((prevTurn) => {
       return [
         {box: {row: rowIdx, col: colIdx}, symbol: activePlayer},
@@ -74,11 +72,14 @@ function App() {
     });
   }
 
+  function onClickReset() {
+    setGameTurns([]);
+  }
 
   return (
     <main>
       <div id="game-container">
-        {winner && <GameOver />}
+        {winner && <GameOver onClickBtn={onClickReset}/>}
         <ul id="players" className="highlight-player">
           {playerInfo.map((player, Idx) =>
             <Player
