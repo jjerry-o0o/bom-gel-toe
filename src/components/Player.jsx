@@ -1,28 +1,27 @@
 import {useState} from "react";
 
-export default function Player({initPlayerName, symbol, sequence}) {
-  const [isEditing, setIsEditing] = useState({status: false, playerName: initPlayerName});
+export default function Player({initPlayerName, symbol, isActive}) {
+  const [playerName, setPlayerName] = useState(initPlayerName)
+  const [isEditing, setIsEditing] = useState(false);
 
-  const btnText = isEditing.status ? 'save' : 'edit';
-  const activePlayer = symbol === sequence ? 'player active' : 'player';
+  const btnText = isEditing ? 'save' : 'edit';
+  const activePlayer = isActive ? 'player active' : 'player';
 
   function onClickEditBtn() {
-    console.log(isEditing.playerName);
-    setIsEditing({status: !isEditing.status, playerName: initPlayerName});
+    setIsEditing(!isEditing);
   }
 
   function onChangePlayerName() {
-    initPlayerName = event.target.value;
+    setPlayerName(event.target.value);
 
   }
 
   return (
     <li className={activePlayer}>
-      {isEditing.status ? (
-        <input type="text" placeholder={isEditing.playerName} onChange={onChangePlayerName}/>
-        // <input type="text" placeholder="" onChange={onChangePlayerName}/>
+      {isEditing ? (
+        <input type="text" placeholder={playerName} onChange={onChangePlayerName}/>
       ) : (
-        <p className="player-name">{isEditing.playerName}</p>
+        <p className="player-name">{playerName}</p>
       )}
       <p className="player-symbol">{symbol}</p>
       <button onClick={onClickEditBtn}>

@@ -79,3 +79,34 @@ function symbolMatch() {
   - winner 를 다시 확인한다.
 - 이때 gameBoard 의 index 에 winning combinations 배열의 index 를 대입해서
 symbol이 notNull 이면서 3개가 모두 일치하는 경우 gameOver 를 한다.
+
+
+## Player 이름 변경하는 부분
+> 내가 했던 방법의 문제점
+- isEditing 이란 useState 에 수정중인지 알 수 있는 true/false 값(=status)이랑 playerName을 객체로 저장하고 있었음.
+- 이렇게 하게 되면, status 가 변경될 때마다 playerName의 상태도 같이 변경되게 되는데,
+playerName을 변경한 후에 다시 수정하려는 시점에서 initPlayerName의 값을 가져오기 때문에
+playerName이 수정 전의 원래 값으로 돌아가게 되버린다.
+
+> 강의 소스의 방법
+- 수정중 여부와 player name 을 각각 따로 상태 관리 한다.
+
+> 알게 된 점
+- 상태가 변경되는 타이밍이 맞는 애들끼리는 같이 묶어도 되지만, 아닌 경우에는 문제가 발생한다.
+
+## Player 정보를 담고 있는 객체의 형태
+```js
+// 내가 했던 방식
+const playerInfo = [
+  {initPlayerName: 'bom', symbol: 'O'},
+  {initPlayerName: 'jel', symbol: 'X'}
+];
+
+// 강의 버전
+const PLAYERS = {
+  X: 'player 1',
+  O: 'player 2'
+}
+```
+
+- 굳이 key 값을 두개로 나눠 이름과, 심볼을 각각 저장할 필요가 없었다. 

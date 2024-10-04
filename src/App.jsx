@@ -11,10 +11,10 @@ const initBoard = [
   [null, null, null]
 ];
 
-const playerInfo = [
-  {initPlayerName: 'bom', symbol: 'O'},
-  {initPlayerName: 'jel', symbol: 'X'}
-];
+const PLAYERS = {
+  O: 'bom',
+  X: 'jel'
+};
 
 function App() {
   const [gameTurns, setGameTurns] = useState([]);
@@ -79,15 +79,18 @@ function App() {
   return (
     <main>
       <div id="game-container">
-        {winner && <GameOver onClickBtn={onClickReset}/>}
+        {winner && <GameOver winner={winner} onClickBtn={onClickReset}/>}
         <ul id="players" className="highlight-player">
-          {playerInfo.map((player, Idx) =>
-            <Player
-              initPlayerName={player.initPlayerName}
-              symbol={player.symbol}
-              key={Idx}
-            />
-          )}
+          <Player
+            initPlayerName={PLAYERS.O}
+            symbol="O"
+            isActive={activePlayer === "O"}
+          />
+          <Player
+            initPlayerName={PLAYERS.X}
+            symbol="X"
+            isActive={activePlayer === "X"}
+          />
         </ul>
 
         <GameBoard
